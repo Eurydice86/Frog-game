@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://sprites/fly.png" type="Texture" id=1]
+[ext_resource path="res://actors/fly.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 32.0
+
+[node name="fly" type="RigidBody2D"]
+position = Vector2( 336, 200 )
+collision_layer = 4
+collision_mask = 8
+mode = 3
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+
+[node name="targetArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="targetArea"]
+shape = SubResource( 3 )
+
+[connection signal="mouse_entered" from="targetArea" to="." method="_on_targetArea_mouse_entered"]
+[connection signal="mouse_exited" from="targetArea" to="." method="_on_targetArea_mouse_exited"]

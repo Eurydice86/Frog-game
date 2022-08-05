@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://actors/tongue.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/frog.gd" type="Script" id=2]
+[ext_resource path="res://sprites/frog.png" type="Texture" id=3]
+[ext_resource path="res://audio/jump.wav" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Frog" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+
+[node name="Tongue" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 8 )
+
+[node name="jumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
